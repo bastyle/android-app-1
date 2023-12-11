@@ -58,7 +58,7 @@
         android:layout_height="match_parent"
         android:textSize="18dp"
         android:textColor="@color/ligth_gray"
-        android:text="Fake Info"
+        android:text=""
         android:layout_below="@id/displayInfoButton"
         android:layout_marginTop="16dp"/>
 

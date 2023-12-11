@@ -5,6 +5,8 @@ import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -34,11 +36,13 @@ class BastianActivity : AppCompatActivity() {
     private lateinit var localBroadcastManager: LocalBroadcastManager
     private lateinit var localBroadcastReceiver: LocalMessageBroadcastReceiver
     private lateinit var stockInfoDetails: String
+    private lateinit var fadeIn : AlphaAnimation
+
 
 
     companion object{
-        val LOCAL_BROADCAST_ACTION = "LOCAL_BROADCAST_ACTION"
-        val STOCK_INFO_KEY = "STOCK_INFO_KEY"
+        const val LOCAL_BROADCAST_ACTION = "LOCAL_BROADCAST_ACTION"
+        const val STOCK_INFO_KEY = "STOCK_INFO_KEY"
         const val TAG = "BastianActivity"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +69,8 @@ class BastianActivity : AppCompatActivity() {
             if (selectedStock != null) {
                 stockInfoDetails="Company Name: "+selectedStock.companyName.plus("\r\n").plus("Stock Quote: ".plus(selectedStock.stockQuote))
                 binding.stockInfoTxt.text=stockInfoDetails
-                //
+                binding.stockInfoTxt.startAnimation(fadeIn)
+                //broadcast
                 val intent = Intent(LOCAL_BROADCAST_ACTION)
                 intent.putExtra(STOCK_INFO_KEY, stockInfoDetails)
                 localBroadcastManager.sendBroadcast(intent)
@@ -87,10 +92,6 @@ class BastianActivity : AppCompatActivity() {
             }
             if(binding.radioGroup.checkedRadioButtonId != -1){
                 viewModel.getStockBySymbol(selectedText)
-                /*val intent = Intent(LOCAL_BROADCAST_ACTION)
-                intent.putExtra(STOCK_INFO_KEY, binding.stockInfoTxt.text)
-                localBroadcastManager.sendBroadcast(intent)*/
-
             } else {
                 Toast.makeText(this, "Select a stock symbol please.", Toast.LENGTH_SHORT).show()
             }
@@ -106,5 +107,20 @@ class BastianActivity : AppCompatActivity() {
             }
         )
 
+        setFadeAnimation()
+    }
+
+    private fun setFadeAnimation(){
+        fadeIn = AlphaAnimation(0.0f, 1.0f)
+        fadeIn.duration = 1000
+        fadeIn.startOffset = 100
+        fadeIn.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+            }
+            override fun onAnimationEnd(animation: Animation?) {
+            }
+            override fun onAnimationRepeat(animation: Animation?) {
+            }
+        })
     }
 }
