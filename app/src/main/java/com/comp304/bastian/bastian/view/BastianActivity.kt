@@ -20,6 +20,8 @@ class BastianActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var database: StockDataBase
     private val viewModel: StockViewModel by viewModels()
+    private lateinit var selectedRadioButton: RadioButton
+    private lateinit var selectedText: String
 
     //private lateinit var adapter: ProgramActivityViewAdapter
     companion object{
@@ -57,16 +59,26 @@ class BastianActivity : AppCompatActivity() {
         })
 
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            val selectedRadioButton: RadioButton = findViewById(checkedId)
-            val selectedText: String = selectedRadioButton.text.toString()
-            Toast.makeText(this, "Selected: $selectedText", Toast.LENGTH_SHORT).show()
-            viewModel.getStockBySymbol(selectedText)
+            selectedRadioButton = findViewById(checkedId)
+            selectedText = selectedRadioButton.text.toString()
+            //Toast.makeText(this, "Selected: $selectedText", Toast.LENGTH_SHORT).show()
+            //viewModel.getStockBySymbol(selectedText)
         }
 
         binding.insertStockButton.setOnClickListener {
             viewModel.createDefaultStock()
         }
         binding.displayInfoButton.setOnClickListener {
+            if(binding.radioGroup.childCount<1){
+                Toast.makeText(this, "Please insert Stock first.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if(binding.radioGroup.checkedRadioButtonId != -1){
+                viewModel.getStockBySymbol(selectedText)
+                Toast.makeText(this, "Selected: $selectedText", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Select a stock symbol please.", Toast.LENGTH_SHORT).show()
+            }
 
         }
     }
