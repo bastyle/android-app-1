@@ -3,21 +3,23 @@ package com.comp304.bastian.bastian.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.RadioButton
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comp304.bastian.bastian.R
 import com.comp304.bastian.bastian.database.StockDataBase
 import com.comp304.bastian.bastian.databinding.ActivityMainBinding
+import com.comp304.bastian.bastian.viewmodel.StockViewModel
 import kotlinx.coroutines.launch
 
 class BastianActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var database: StockDataBase
-    private val viewModel: ProgramsViewModel by viewModels()
+    private val viewModel: StockViewModel by viewModels()
 
-    private lateinit var adapter: ProgramActivityViewAdapter
+    //private lateinit var adapter: ProgramActivityViewAdapter
     companion object{
         const val TAG = "BastianActivity"
     }
@@ -27,19 +29,17 @@ class BastianActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        database = CollegeDataBase.getInstance(baseContext)
-        viewModel.initDatabase(database, GlobalUtil.loadDataFromJson(this))
+        database = StockDataBase.getInstance(baseContext)
+        viewModel.initDatabase(database)
 
-        adapter = ProgramActivityViewAdapter(this)
-
-        binding.recyclerView.adapter=this.adapter
-        binding.recyclerView.layoutManager =
-            LinearLayoutManager(this,
-                LinearLayoutManager.VERTICAL,
-                false)
         lifecycleScope.launch {
-            viewModel.programStateFlow.collect {
-                adapter.updateList(it)
+            viewModel.stockStateFlow.collect {
+                it.forEach{
+                    val radioButton = RadioButton(baseContext)
+                    radioButton.text = it.toString()
+                    radioButton.id = it.stockSymbol.hashCode()
+                    binding.radioGroup.addView(radioButton)
+                }
             }
         }
     }

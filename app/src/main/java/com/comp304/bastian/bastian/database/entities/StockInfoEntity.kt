@@ -7,10 +7,14 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "stockInfo")
 data class StockInfoEntity(
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     val stockSymbol: String,
     @ColumnInfo("companyName")
     val companyName: String,
     @ColumnInfo("stockQuote")
     val stockQuote: Double
-)
+) {
+    override fun toString(): String {
+        return stockSymbol
+    }
+}

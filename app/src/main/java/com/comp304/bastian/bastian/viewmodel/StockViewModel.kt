@@ -24,7 +24,7 @@ class StockViewModel: ViewModel() {
     val companySelected : MutableLiveData<StockInfoEntity> get()= _companySelected
 
 
-    fun getAllPrograms() {
+    fun getStock() {
         viewModelScope.launch {
             val programs = repo.getAllStock()
             if (programs != null) {
@@ -52,7 +52,7 @@ class StockViewModel: ViewModel() {
         database = stockDataBase
         repo = StockRepo(database)
         createDefaultPrograms(getDefaultStock())
-        getAllPrograms()
+        getStock()
     }
 
     private fun getDefaultStock():List<StockInfoEntity>{

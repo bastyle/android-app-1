@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="20dp"
+    android:padding="20dp"
     tools:context=".view.BastianActivity">
 
     <TextView
@@ -39,20 +40,6 @@
         android:orientation="vertical"
         android:layout_below="@id/textView2"
         android:layout_marginTop="16dp">
-
-        <RadioButton
-            android:id="@+id/radioButtonOption1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Option 1"/>
-
-        <RadioButton
-            android:id="@+id/radioButtonOption2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Option 2"/>
-
-        <!-- Add more RadioButtons as needed -->
 
     </RadioGroup>
 
