@@ -20,8 +20,8 @@ class LocalMessageBroadcastReceiver : BroadcastReceiver() {
         }
         when(intent.action) {
             BastianActivity.LOCAL_BROADCAST_ACTION -> {
-                Log.e(TAG, "This is a local broadcast")
                 val stockInfo = intent.getStringExtra(BastianActivity.STOCK_INFO_KEY)
+                Log.e(TAG, "StockInfo: $stockInfo")
                 Toast.makeText(context, "Stock Info received:\r\n$stockInfo", Toast.LENGTH_SHORT).show()
             }
         }
