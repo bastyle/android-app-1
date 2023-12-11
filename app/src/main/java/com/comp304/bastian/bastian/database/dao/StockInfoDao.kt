@@ -30,5 +30,5 @@ interface StockInfoDao {
             WHERE companyName = :name
         """
     )
-    fun getStockByName(name: String): List<StockInfoEntity>
+    fun getStockByName(name: String): StockInfoEntity
 }
