@@ -15,6 +15,10 @@ import com.comp304.bastian.bastian.databinding.ActivityMainBinding
 import com.comp304.bastian.bastian.viewmodel.StockViewModel
 import kotlinx.coroutines.launch
 
+/**
+ * Bastian Bastias Sanchez
+ * Student ID: 301242983
+ */
 class BastianActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -23,7 +27,7 @@ class BastianActivity : AppCompatActivity() {
     private lateinit var selectedRadioButton: RadioButton
     private lateinit var selectedText: String
 
-    //private lateinit var adapter: ProgramActivityViewAdapter
+
     companion object{
         const val TAG = "BastianActivity"
     }
@@ -42,16 +46,11 @@ class BastianActivity : AppCompatActivity() {
                     val radioButton = RadioButton(baseContext)
                     radioButton.text = infoEntity.toString()
                     radioButton.id = infoEntity.stockSymbol.hashCode()
-                    /*radioButton.setOnClickListener {
-                        Toast.makeText(this@BastianActivity, infoEntity.toString(), Toast.LENGTH_SHORT).show()
-                        binding.stockInfoTxt.text="Company Name: "+infoEntity.companyName.plus("\n").plus("Stock Quote: ".plus(infoEntity.stockQuote))
-                    }*/
-
                     binding.radioGroup.addView(radioButton)
                 }
             }
         }
-        // Observe the companySelected LiveData
+
         viewModel.companySelected.observe(this, Observer { selectedStock ->
             if (selectedStock != null) {
                 binding.stockInfoTxt.text="Company Name: "+selectedStock.companyName.plus("\n").plus("Stock Quote: ".plus(selectedStock.stockQuote))
@@ -61,8 +60,6 @@ class BastianActivity : AppCompatActivity() {
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
             selectedRadioButton = findViewById(checkedId)
             selectedText = selectedRadioButton.text.toString()
-            //Toast.makeText(this, "Selected: $selectedText", Toast.LENGTH_SHORT).show()
-            //viewModel.getStockBySymbol(selectedText)
         }
 
         binding.insertStockButton.setOnClickListener {

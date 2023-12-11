@@ -12,7 +12,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-
+/**
+ * Bastian Bastias Sanchez
+ * Student ID: 301242983
+ */
 class StockViewModel: ViewModel() {
     private lateinit var database: StockDataBase
     private lateinit var repo: StockRepo

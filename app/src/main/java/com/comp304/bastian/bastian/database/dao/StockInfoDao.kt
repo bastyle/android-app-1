@@ -5,7 +5,10 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.comp304.bastian.bastian.database.entities.StockInfoEntity
-
+/**
+ * Bastian Bastias Sanchez
+ * Student ID: 301242983
+ */
 @Dao
 interface StockInfoDao {
 

@@ -3,7 +3,10 @@ package com.comp304.bastian.bastian.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-
+/**
+ * Bastian Bastias Sanchez
+ * Student ID: 301242983
+ */
 @Entity(tableName = "stockInfo")
 data class StockInfoEntity(
 

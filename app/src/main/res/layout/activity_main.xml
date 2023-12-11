@@ -29,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select stock Symbol:"
+        android:textColor="@color/ligth_gray"
         android:textSize="18dp"
         android:layout_below="@id/insertStockButton"
         android:layout_marginTop="16dp"/>
@@ -55,6 +56,8 @@
         android:id="@+id/stockInfoTxt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textSize="18dp"
+        android:textColor="@color/ligth_gray"
         android:text="Fake Info"
         android:layout_below="@id/displayInfoButton"
         android:layout_marginTop="16dp"/>

@@ -6,7 +6,10 @@ import com.comp304.bastian.bastian.database.entities.StockInfoEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-
+/**
+ * Bastian Bastias Sanchez
+ * Student ID: 301242983
+ */
 class StockRepo(private val database: StockDataBase) {
 
     companion object{
