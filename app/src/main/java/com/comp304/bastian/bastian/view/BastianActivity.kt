@@ -31,6 +31,7 @@ class BastianActivity : AppCompatActivity() {
         viewModel.initDatabase(database, GlobalUtil.loadDataFromJson(this))
 
         adapter = ProgramActivityViewAdapter(this)
+
         binding.recyclerView.adapter=this.adapter
         binding.recyclerView.layoutManager =
             LinearLayoutManager(this,

@@ -27,8 +27,8 @@ interface StockInfoDao {
     @Query(
         """
             SELECT * FROM stockInfo
-            WHERE companyName = :name
+            WHERE stockSymbol = :name
         """
     )
-    fun getStockByName(name: String): StockInfoEntity
+    fun getStockBySymbol(name: String): StockInfoEntity
 }

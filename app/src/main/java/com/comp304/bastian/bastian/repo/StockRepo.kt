@@ -14,10 +14,10 @@ class StockRepo(private val database: StockDataBase) {
     }
 
 
-    suspend fun getStockByName(name: String) : StockInfoEntity {
+    suspend fun getStockBySymbol(name: String) : StockInfoEntity {
         Log.e(TAG,"getStockByName: $name")
         return withContext(Dispatchers.IO) {
-            database.stockInfoDao().getStockByName(name)
+            database.stockInfoDao().getStockBySymbol(name)
         }
     }
 
