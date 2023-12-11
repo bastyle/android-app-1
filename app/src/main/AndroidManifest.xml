@@ -21,6 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".broadcast.LocalMessageBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="LOCAL_BROADCAST_ACTION"/>
+            </intent-filter>
+        </receiver>
+        <service android:name=".broadcast.BroadcastService" android:enabled="true" android:exported="false"/>
     </application>
 
 </manifest>

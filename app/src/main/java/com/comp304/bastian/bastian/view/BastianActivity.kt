@@ -1,5 +1,7 @@
 package com.comp304.bastian.bastian.view
 
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,8 +10,11 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comp304.bastian.bastian.R
+import com.comp304.bastian.bastian.broadcast.BroadcastService
+import com.comp304.bastian.bastian.broadcast.LocalMessageBroadcastReceiver
 import com.comp304.bastian.bastian.database.StockDataBase
 import com.comp304.bastian.bastian.databinding.ActivityMainBinding
 import com.comp304.bastian.bastian.viewmodel.StockViewModel
@@ -26,9 +31,14 @@ class BastianActivity : AppCompatActivity() {
     private val viewModel: StockViewModel by viewModels()
     private lateinit var selectedRadioButton: RadioButton
     private lateinit var selectedText: String
+    private lateinit var localBroadcastManager: LocalBroadcastManager
+    private lateinit var localBroadcastReceiver: LocalMessageBroadcastReceiver
+    private lateinit var stockInfoDetails: String
 
 
     companion object{
+        val LOCAL_BROADCAST_ACTION = "LOCAL_BROADCAST_ACTION"
+        val STOCK_INFO_KEY = "STOCK_INFO_KEY"
         const val TAG = "BastianActivity"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +63,12 @@ class BastianActivity : AppCompatActivity() {
 
         viewModel.companySelected.observe(this, Observer { selectedStock ->
             if (selectedStock != null) {
-                binding.stockInfoTxt.text="Company Name: "+selectedStock.companyName.plus("\n").plus("Stock Quote: ".plus(selectedStock.stockQuote))
+                stockInfoDetails="Company Name: "+selectedStock.companyName.plus("\r\n").plus("Stock Quote: ".plus(selectedStock.stockQuote))
+                binding.stockInfoTxt.text=stockInfoDetails
+                //
+                val intent = Intent(LOCAL_BROADCAST_ACTION)
+                intent.putExtra(STOCK_INFO_KEY, stockInfoDetails)
+                localBroadcastManager.sendBroadcast(intent)
             }
         })
 
@@ -72,11 +87,24 @@ class BastianActivity : AppCompatActivity() {
             }
             if(binding.radioGroup.checkedRadioButtonId != -1){
                 viewModel.getStockBySymbol(selectedText)
-                Toast.makeText(this, "Selected: $selectedText", Toast.LENGTH_SHORT).show()
+                /*val intent = Intent(LOCAL_BROADCAST_ACTION)
+                intent.putExtra(STOCK_INFO_KEY, binding.stockInfoTxt.text)
+                localBroadcastManager.sendBroadcast(intent)*/
+
             } else {
                 Toast.makeText(this, "Select a stock symbol please.", Toast.LENGTH_SHORT).show()
             }
-
         }
+        //BROADCAST
+        localBroadcastManager = LocalBroadcastManager.getInstance(this)
+        localBroadcastReceiver = LocalMessageBroadcastReceiver()
+
+        localBroadcastManager.registerReceiver(
+            localBroadcastReceiver,
+            IntentFilter().apply {
+                addAction(LOCAL_BROADCAST_ACTION)
+            }
+        )
+
     }
 }
