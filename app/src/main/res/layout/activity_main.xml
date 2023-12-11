@@ -11,7 +11,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="@dimen/text_size_large"
         android:text="Stock Information"
         android:textStyle="bold"
         />
@@ -20,8 +20,9 @@
         android:id="@+id/insertStockButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Insert Stock (Hardcore)"
+        android:text="@string/InsertButtonTxt"
         android:layout_below="@id/textView1"
+        android:textSize="@dimen/text_size_medium"
         />
 
     <TextView
@@ -30,7 +31,7 @@
         android:layout_height="wrap_content"
         android:text="Select stock Symbol:"
         android:textColor="@color/ligth_gray"
-        android:textSize="18dp"
+        android:textSize="@dimen/text_size_medium"
         android:layout_below="@id/insertStockButton"
         android:layout_marginTop="16dp"/>
 
@@ -48,7 +49,8 @@
         android:id="@+id/displayInfoButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Display Stock Info"
+        android:text="@string/DisplayButtonTxt"
+        android:textSize="@dimen/text_size_medium"
         android:layout_below="@id/radioGroup"
         android:layout_marginTop="16dp"/>
 
@@ -56,9 +58,9 @@
         android:id="@+id/stockInfoTxt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="18dp"
+        android:textSize="@dimen/text_size_medium"
         android:textColor="@color/ligth_gray"
-        android:text=""
+        android:text="AAAAA"
         android:layout_below="@id/displayInfoButton"
         android:layout_marginTop="16dp"/>
 
