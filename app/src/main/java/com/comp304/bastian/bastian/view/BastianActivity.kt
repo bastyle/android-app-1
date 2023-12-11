@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comp304.bastian.bastian.R
@@ -34,13 +36,38 @@ class BastianActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             viewModel.stockStateFlow.collect {
-                it.forEach{
+                it.forEach{ infoEntity ->
                     val radioButton = RadioButton(baseContext)
-                    radioButton.text = it.toString()
-                    radioButton.id = it.stockSymbol.hashCode()
+                    radioButton.text = infoEntity.toString()
+                    radioButton.id = infoEntity.stockSymbol.hashCode()
+                    /*radioButton.setOnClickListener {
+                        Toast.makeText(this@BastianActivity, infoEntity.toString(), Toast.LENGTH_SHORT).show()
+                        binding.stockInfoTxt.text="Company Name: "+infoEntity.companyName.plus("\n").plus("Stock Quote: ".plus(infoEntity.stockQuote))
+                    }*/
+
                     binding.radioGroup.addView(radioButton)
                 }
             }
+        }
+        // Observe the companySelected LiveData
+        viewModel.companySelected.observe(this, Observer { selectedStock ->
+            if (selectedStock != null) {
+                binding.stockInfoTxt.text="Company Name: "+selectedStock.companyName.plus("\n").plus("Stock Quote: ".plus(selectedStock.stockQuote))
+            }
+        })
+
+        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            val selectedRadioButton: RadioButton = findViewById(checkedId)
+            val selectedText: String = selectedRadioButton.text.toString()
+            Toast.makeText(this, "Selected: $selectedText", Toast.LENGTH_SHORT).show()
+            viewModel.getStockBySymbol(selectedText)
+        }
+
+        binding.insertStockButton.setOnClickListener {
+            viewModel.createDefaultStock()
+        }
+        binding.displayInfoButton.setOnClickListener {
+
         }
     }
 }

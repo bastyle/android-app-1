@@ -17,7 +17,7 @@
         />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/insertStockButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Insert Stock (Hardcore)"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:text="Select stock Symbol:"
         android:textSize="18dp"
-        android:layout_below="@id/button1"
+        android:layout_below="@id/insertStockButton"
         android:layout_marginTop="16dp"/>
 
     <RadioGroup
@@ -44,7 +44,7 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/displayInfoButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Display Stock Info"
@@ -52,11 +52,11 @@
         android:layout_marginTop="16dp"/>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/stockInfoTxt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Fake Info"
-        android:layout_below="@id/button2"
+        android:layout_below="@id/displayInfoButton"
         android:layout_marginTop="16dp"/>
 
 </RelativeLayout>

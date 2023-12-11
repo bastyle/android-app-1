@@ -26,18 +26,26 @@ class StockViewModel: ViewModel() {
 
     fun getStock() {
         viewModelScope.launch {
-            val programs = repo.getAllStock()
-            if (programs != null) {
+            val stockRecords = repo.getAllStock()
+            if (stockRecords != null) {
                 _stockStateFlow.update {
-                    programs
+                    stockRecords
                 }
             }
         }
     }
 
-    private fun createDefaultPrograms(stockRecords : List<StockInfoEntity>){
+    fun createDefaultStock(stockRecords : List<StockInfoEntity>){
         viewModelScope.launch {
             repo.createDefaultStock(stockRecords)
+            getStock()
+        }
+    }
+
+    fun createDefaultStock(){
+        viewModelScope.launch {
+            repo.createDefaultStock(getDefaultStock())
+            getStock()
         }
     }
 
@@ -51,8 +59,8 @@ class StockViewModel: ViewModel() {
         Log.d("StockViewModel","initDatabase...")
         database = stockDataBase
         repo = StockRepo(database)
-        createDefaultPrograms(getDefaultStock())
-        getStock()
+        //createDefaultStock(getDefaultStock())
+        //getStock()
     }
 
     private fun getDefaultStock():List<StockInfoEntity>{
